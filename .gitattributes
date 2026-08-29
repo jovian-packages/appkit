@@ -1,0 +1,7 @@
+/tests export-ignore
+/.unlazy export-ignore
+/phpunit.xml export-ignore
+/.github export-ignore
+/.okf export-ignore
+/AGENTS.md export-ignore
+/docs export-ignore
