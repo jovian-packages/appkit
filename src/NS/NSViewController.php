@@ -19,7 +19,7 @@ use Jovian\Bindings\AppKit\Values\NSSize;
  */
 class NSViewController extends NSResponder
 {
-    public static function initWithNibNameBundle(int $nibNameOrNil, int $nibBundleOrNil): ?ObjCObject
+    public static function initWithNibNameBundle(string $nibNameOrNil, int $nibBundleOrNil): ?ObjCObject
     {
         return ObjCObject::box(ExtNSViewController::initWithNibNameBundle($nibNameOrNil, $nibBundleOrNil));
     }

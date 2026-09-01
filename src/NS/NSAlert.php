@@ -103,7 +103,7 @@ class NSAlert extends ObjCObject
         return ExtNSAlert::helpAnchor($this->handle);
     }
 
-    public function setHelpAnchor(int $helpAnchor): static
+    public function setHelpAnchor(string $helpAnchor): static
     {
         ExtNSAlert::setHelpAnchor($this->handle, $helpAnchor);
 

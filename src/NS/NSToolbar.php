@@ -18,7 +18,7 @@ use Jovian\Bindings\AppKit\Values\NSSize;
  */
 class NSToolbar extends ObjCObject
 {
-    public static function initWithIdentifier(int $identifier): ?ObjCObject
+    public static function initWithIdentifier(string $identifier): ?ObjCObject
     {
         return ObjCObject::box(ExtNSToolbar::initWithIdentifier($identifier));
     }
@@ -28,7 +28,7 @@ class NSToolbar extends ObjCObject
         return ObjCObject::box(ExtNSToolbar::init());
     }
 
-    public function insertItemWithItemIdentifierAtIndex(int $itemIdentifier, int $index): static
+    public function insertItemWithItemIdentifierAtIndex(string $itemIdentifier, int $index): static
     {
         ExtNSToolbar::insertItemWithItemIdentifierAtIndex($this->handle, $itemIdentifier, $index);
 
@@ -42,7 +42,7 @@ class NSToolbar extends ObjCObject
         return $this;
     }
 
-    public function removeItemWithItemIdentifier(int $itemIdentifier): static
+    public function removeItemWithItemIdentifier(string $itemIdentifier): static
     {
         ExtNSToolbar::removeItemWithItemIdentifier($this->handle, $itemIdentifier);
 
@@ -102,7 +102,7 @@ class NSToolbar extends ObjCObject
         return ExtNSToolbar::selectedItemIdentifier($this->handle);
     }
 
-    public function setSelectedItemIdentifier(int $selectedItemIdentifier): static
+    public function setSelectedItemIdentifier(string $selectedItemIdentifier): static
     {
         ExtNSToolbar::setSelectedItemIdentifier($this->handle, $selectedItemIdentifier);
 

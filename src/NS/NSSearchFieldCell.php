@@ -128,7 +128,7 @@ class NSSearchFieldCell extends NSTextFieldCell
         return ExtNSSearchFieldCell::recentsAutosaveName($this->handle);
     }
 
-    public function setRecentsAutosaveName(int $recentsAutosaveName): static
+    public function setRecentsAutosaveName(string $recentsAutosaveName): static
     {
         ExtNSSearchFieldCell::setRecentsAutosaveName($this->handle, $recentsAutosaveName);
 

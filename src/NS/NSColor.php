@@ -60,17 +60,17 @@ class NSColor extends ObjCObject
         return ObjCObject::box(ExtNSColor::colorWithColorSpaceHueSaturationBrightnessAlpha($space, $hue, $saturation, $brightness, $alpha));
     }
 
-    public static function colorWithCatalogNameColorName(int $listName, int $colorName): ?ObjCObject
+    public static function colorWithCatalogNameColorName(string $listName, string $colorName): ?ObjCObject
     {
         return ObjCObject::box(ExtNSColor::colorWithCatalogNameColorName($listName, $colorName));
     }
 
-    public static function colorNamedBundle(int $name, int $bundle): ?ObjCObject
+    public static function colorNamedBundle(string $name, int $bundle): ?ObjCObject
     {
         return ObjCObject::box(ExtNSColor::colorNamedBundle($name, $bundle));
     }
 
-    public static function colorNamed(int $name): ?ObjCObject
+    public static function colorNamed(string $name): ?ObjCObject
     {
         return ObjCObject::box(ExtNSColor::colorNamed($name));
     }
@@ -673,5 +673,10 @@ class NSColor extends ObjCObject
     public static function colorWithCIColor(int $color): ?ObjCObject
     {
         return ObjCObject::box(ExtNSColor::colorWithCIColor($color));
+    }
+
+    public function CGColor(): int
+    {
+        return ExtNSColor::CGColor($this->handle);
     }
 }

@@ -104,22 +104,22 @@ class NSFont extends ObjCObject
         return ObjCObject::box(ExtNSFont::controlContentFontOfSize($fontSize));
     }
 
-    public static function systemFontOfSizeWeight(float $fontSize, int $weight): ?ObjCObject
+    public static function systemFontOfSizeWeight(float $fontSize, float $weight): ?ObjCObject
     {
         return ObjCObject::box(ExtNSFont::systemFontOfSizeWeight($fontSize, $weight));
     }
 
-    public static function monospacedDigitSystemFontOfSizeWeight(float $fontSize, int $weight): ?ObjCObject
+    public static function monospacedDigitSystemFontOfSizeWeight(float $fontSize, float $weight): ?ObjCObject
     {
         return ObjCObject::box(ExtNSFont::monospacedDigitSystemFontOfSizeWeight($fontSize, $weight));
     }
 
-    public static function systemFontOfSizeWeightWidth(float $fontSize, int $weight, int $width): ?ObjCObject
+    public static function systemFontOfSizeWeightWidth(float $fontSize, float $weight, float $width): ?ObjCObject
     {
         return ObjCObject::box(ExtNSFont::systemFontOfSizeWeightWidth($fontSize, $weight, $width));
     }
 
-    public static function monospacedSystemFontOfSizeWeight(float $fontSize, int $weight): ?ObjCObject
+    public static function monospacedSystemFontOfSizeWeight(float $fontSize, float $weight): ?ObjCObject
     {
         return ObjCObject::box(ExtNSFont::monospacedSystemFontOfSizeWeight($fontSize, $weight));
     }
@@ -318,7 +318,7 @@ class NSFont extends ObjCObject
         return ExtNSFont::renderingMode($this->handle);
     }
 
-    public static function preferredFontForTextStyleOptions(int $style, array $options): ?ObjCObject
+    public static function preferredFontForTextStyleOptions(string $style, array $options): ?ObjCObject
     {
         return ObjCObject::box(ExtNSFont::preferredFontForTextStyleOptions($style, $options));
     }

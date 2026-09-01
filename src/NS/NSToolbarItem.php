@@ -17,7 +17,7 @@ use Jovian\Bindings\AppKit\Values\NSSize;
  */
 class NSToolbarItem extends ObjCObject
 {
-    public static function initWithItemIdentifier(int $itemIdentifier): ?ObjCObject
+    public static function initWithItemIdentifier(string $itemIdentifier): ?ObjCObject
     {
         return ObjCObject::box(ExtNSToolbarItem::initWithItemIdentifier($itemIdentifier));
     }

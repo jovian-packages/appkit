@@ -53,6 +53,18 @@ class NSButton extends NSControl
         return $this;
     }
 
+    public function attributedTitle(): ?ObjCObject
+    {
+        return ObjCObject::box(ExtNSButton::attributedTitle($this->handle));
+    }
+
+    public function setAttributedTitle(int $attributedTitle): static
+    {
+        ExtNSButton::setAttributedTitle($this->handle, $attributedTitle);
+
+        return $this;
+    }
+
     public function title(): ?string
     {
         return ExtNSButton::title($this->handle);

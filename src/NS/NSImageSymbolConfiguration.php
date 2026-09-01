@@ -18,22 +18,22 @@ use Jovian\Bindings\AppKit\Values\NSSize;
  */
 class NSImageSymbolConfiguration extends ObjCObject
 {
-    public static function configurationWithPointSizeWeightScale(float $pointSize, int $weight, NSImageSymbolScale|int $scale): ?ObjCObject
+    public static function configurationWithPointSizeWeightScale(float $pointSize, float $weight, NSImageSymbolScale|int $scale): ?ObjCObject
     {
         return ObjCObject::box(ExtNSImageSymbolConfiguration::configurationWithPointSizeWeightScale($pointSize, $weight, $scale instanceof \BackedEnum ? $scale->value : $scale));
     }
 
-    public static function configurationWithPointSizeWeight(float $pointSize, int $weight): ?ObjCObject
+    public static function configurationWithPointSizeWeight(float $pointSize, float $weight): ?ObjCObject
     {
         return ObjCObject::box(ExtNSImageSymbolConfiguration::configurationWithPointSizeWeight($pointSize, $weight));
     }
 
-    public static function configurationWithTextStyleScale(int $style, NSImageSymbolScale|int $scale): ?ObjCObject
+    public static function configurationWithTextStyleScale(string $style, NSImageSymbolScale|int $scale): ?ObjCObject
     {
         return ObjCObject::box(ExtNSImageSymbolConfiguration::configurationWithTextStyleScale($style, $scale instanceof \BackedEnum ? $scale->value : $scale));
     }
 
-    public static function configurationWithTextStyle(int $style): ?ObjCObject
+    public static function configurationWithTextStyle(string $style): ?ObjCObject
     {
         return ObjCObject::box(ExtNSImageSymbolConfiguration::configurationWithTextStyle($style));
     }

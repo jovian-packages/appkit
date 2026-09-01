@@ -54,7 +54,7 @@ class NSSearchField extends NSTextField
         return ExtNSSearchField::recentsAutosaveName($this->handle);
     }
 
-    public function setRecentsAutosaveName(int $recentsAutosaveName): static
+    public function setRecentsAutosaveName(string $recentsAutosaveName): static
     {
         ExtNSSearchField::setRecentsAutosaveName($this->handle, $recentsAutosaveName);
 

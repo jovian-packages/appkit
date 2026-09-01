@@ -624,19 +624,19 @@ class NSLayoutManager extends ObjCObject
         return $this;
     }
 
-    public function removeTemporaryAttributeForCharacterRange(int $attrName, NSRange $charRange): static
+    public function removeTemporaryAttributeForCharacterRange(string $attrName, NSRange $charRange): static
     {
         ExtNSLayoutManager::removeTemporaryAttributeForCharacterRange(...[$this->handle, $attrName, ...$charRange->toArgs()]);
 
         return $this;
     }
 
-    public function temporaryAttributeAtCharacterIndexEffectiveRange(int $attrName, int $location): array
+    public function temporaryAttributeAtCharacterIndexEffectiveRange(string $attrName, int $location): array
     {
         return ExtNSLayoutManager::temporaryAttributeAtCharacterIndexEffectiveRange($this->handle, $attrName, $location);
     }
 
-    public function temporaryAttributeAtCharacterIndexLongestEffectiveRangeInRange(int $attrName, int $location, NSRange $rangeLimit): array
+    public function temporaryAttributeAtCharacterIndexLongestEffectiveRangeInRange(string $attrName, int $location, NSRange $rangeLimit): array
     {
         return ExtNSLayoutManager::temporaryAttributeAtCharacterIndexLongestEffectiveRangeInRange(...[$this->handle, $attrName, $location, ...$rangeLimit->toArgs()]);
     }
@@ -646,7 +646,7 @@ class NSLayoutManager extends ObjCObject
         return ExtNSLayoutManager::temporaryAttributesAtCharacterIndexLongestEffectiveRangeInRange(...[$this->handle, $location, ...$rangeLimit->toArgs()]);
     }
 
-    public function addTemporaryAttributeValueForCharacterRange(int $attrName, int $value, NSRange $charRange): static
+    public function addTemporaryAttributeValueForCharacterRange(string $attrName, int $value, NSRange $charRange): static
     {
         ExtNSLayoutManager::addTemporaryAttributeValueForCharacterRange(...[$this->handle, $attrName, $value, ...$charRange->toArgs()]);
 

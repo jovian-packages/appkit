@@ -85,7 +85,7 @@ class NSImageRep extends ObjCObject
         return ExtNSImageRep::colorSpaceName($this->handle);
     }
 
-    public function setColorSpaceName(int $colorSpaceName): static
+    public function setColorSpaceName(string $colorSpaceName): static
     {
         ExtNSImageRep::setColorSpaceName($this->handle, $colorSpaceName);
 

@@ -29,14 +29,14 @@ class NSNotificationCenter extends ObjCObject
         return $this;
     }
 
-    public function postNotificationNameObject(int $aName, int $anObject): static
+    public function postNotificationNameObject(string $aName, int $anObject): static
     {
         ExtNSNotificationCenter::postNotificationNameObject($this->handle, $aName, $anObject);
 
         return $this;
     }
 
-    public function postNotificationNameObjectUserInfo(int $aName, int $anObject, array $aUserInfo): static
+    public function postNotificationNameObjectUserInfo(string $aName, int $anObject, array $aUserInfo): static
     {
         ExtNSNotificationCenter::postNotificationNameObjectUserInfo($this->handle, $aName, $anObject, $aUserInfo);
 
@@ -50,7 +50,7 @@ class NSNotificationCenter extends ObjCObject
         return $this;
     }
 
-    public function removeObserverNameObject(int $observer, int $aName, int $anObject): static
+    public function removeObserverNameObject(int $observer, string $aName, int $anObject): static
     {
         ExtNSNotificationCenter::removeObserverNameObject($this->handle, $observer, $aName, $anObject);
 

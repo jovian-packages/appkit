@@ -52,7 +52,7 @@ class NSSplitView extends NSView
         return ExtNSSplitView::autosaveName($this->handle);
     }
 
-    public function setAutosaveName(int $autosaveName): static
+    public function setAutosaveName(string $autosaveName): static
     {
         ExtNSSplitView::setAutosaveName($this->handle, $autosaveName);
 
@@ -122,7 +122,7 @@ class NSSplitView extends NSView
         return ExtNSSplitView::holdingPriorityForSubviewAtIndex($this->handle, $subviewIndex);
     }
 
-    public function setHoldingPriorityForSubviewAtIndex(int $priority, int $subviewIndex): static
+    public function setHoldingPriorityForSubviewAtIndex(float $priority, int $subviewIndex): static
     {
         ExtNSSplitView::setHoldingPriorityForSubviewAtIndex($this->handle, $priority, $subviewIndex);
 

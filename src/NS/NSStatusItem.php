@@ -85,7 +85,7 @@ class NSStatusItem extends ObjCObject
         return ExtNSStatusItem::autosaveName($this->handle);
     }
 
-    public function setAutosaveName(int $autosaveName): static
+    public function setAutosaveName(string $autosaveName): static
     {
         ExtNSStatusItem::setAutosaveName($this->handle, $autosaveName);
 

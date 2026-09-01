@@ -19,17 +19,17 @@ use Jovian\Bindings\AppKit\Values\NSSize;
  */
 class NSToolbarItemGroup extends NSToolbarItem
 {
-    public static function initWithItemIdentifier(int $itemIdentifier): ?ObjCObject
+    public static function initWithItemIdentifier(string $itemIdentifier): ?ObjCObject
     {
         return ObjCObject::box(ExtNSToolbarItemGroup::initWithItemIdentifier($itemIdentifier));
     }
 
-    public static function groupWithItemIdentifierTitlesSelectionModeLabelsTargetAction(int $itemIdentifier, array $titles, NSToolbarItemGroupSelectionMode|int $selectionMode, array $labels, int $target, string $action): ?ObjCObject
+    public static function groupWithItemIdentifierTitlesSelectionModeLabelsTargetAction(string $itemIdentifier, array $titles, NSToolbarItemGroupSelectionMode|int $selectionMode, array $labels, int $target, string $action): ?ObjCObject
     {
         return ObjCObject::box(ExtNSToolbarItemGroup::groupWithItemIdentifierTitlesSelectionModeLabelsTargetAction($itemIdentifier, $titles, $selectionMode instanceof \BackedEnum ? $selectionMode->value : $selectionMode, $labels, $target, $action));
     }
 
-    public static function groupWithItemIdentifierImagesSelectionModeLabelsTargetAction(int $itemIdentifier, array $images, NSToolbarItemGroupSelectionMode|int $selectionMode, array $labels, int $target, string $action): ?ObjCObject
+    public static function groupWithItemIdentifierImagesSelectionModeLabelsTargetAction(string $itemIdentifier, array $images, NSToolbarItemGroupSelectionMode|int $selectionMode, array $labels, int $target, string $action): ?ObjCObject
     {
         return ObjCObject::box(ExtNSToolbarItemGroup::groupWithItemIdentifierImagesSelectionModeLabelsTargetAction($itemIdentifier, $images, $selectionMode instanceof \BackedEnum ? $selectionMode->value : $selectionMode, $labels, $target, $action));
     }

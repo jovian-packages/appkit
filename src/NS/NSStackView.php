@@ -159,7 +159,7 @@ class NSStackView extends NSView
         return ExtNSStackView::detachedViews($this->handle);
     }
 
-    public function setVisibilityPriorityForView(int $priority, int $view): static
+    public function setVisibilityPriorityForView(float $priority, int $view): static
     {
         ExtNSStackView::setVisibilityPriorityForView($this->handle, $priority, $view);
 
@@ -176,7 +176,7 @@ class NSStackView extends NSView
         return ExtNSStackView::clippingResistancePriorityForOrientation($this->handle, $orientation instanceof \BackedEnum ? $orientation->value : $orientation);
     }
 
-    public function setClippingResistancePriorityForOrientation(int $clippingResistancePriority, NSLayoutConstraintOrientation|int $orientation): static
+    public function setClippingResistancePriorityForOrientation(float $clippingResistancePriority, NSLayoutConstraintOrientation|int $orientation): static
     {
         ExtNSStackView::setClippingResistancePriorityForOrientation($this->handle, $clippingResistancePriority, $orientation instanceof \BackedEnum ? $orientation->value : $orientation);
 
@@ -188,7 +188,7 @@ class NSStackView extends NSView
         return ExtNSStackView::huggingPriorityForOrientation($this->handle, $orientation instanceof \BackedEnum ? $orientation->value : $orientation);
     }
 
-    public function setHuggingPriorityForOrientation(int $huggingPriority, NSLayoutConstraintOrientation|int $orientation): static
+    public function setHuggingPriorityForOrientation(float $huggingPriority, NSLayoutConstraintOrientation|int $orientation): static
     {
         ExtNSStackView::setHuggingPriorityForOrientation($this->handle, $huggingPriority, $orientation instanceof \BackedEnum ? $orientation->value : $orientation);
 

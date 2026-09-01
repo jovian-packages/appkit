@@ -42,7 +42,7 @@ class NSFontDescriptor extends ObjCObject
         return ExtNSFontDescriptor::requiresFontAssetRequest($this->handle);
     }
 
-    public function objectForKey(int $attribute): ?ObjCObject
+    public function objectForKey(string $attribute): ?ObjCObject
     {
         return ObjCObject::box(ExtNSFontDescriptor::objectForKey($this->handle, $attribute));
     }
@@ -112,12 +112,12 @@ class NSFontDescriptor extends ObjCObject
         return ObjCObject::box(ExtNSFontDescriptor::fontDescriptorWithFamily($this->handle, $newFamily));
     }
 
-    public function fontDescriptorWithDesign(int $design): ?ObjCObject
+    public function fontDescriptorWithDesign(string $design): ?ObjCObject
     {
         return ObjCObject::box(ExtNSFontDescriptor::fontDescriptorWithDesign($this->handle, $design));
     }
 
-    public static function preferredFontDescriptorForTextStyleOptions(int $style, array $options): ?ObjCObject
+    public static function preferredFontDescriptorForTextStyleOptions(string $style, array $options): ?ObjCObject
     {
         return ObjCObject::box(ExtNSFontDescriptor::preferredFontDescriptorForTextStyleOptions($style, $options));
     }

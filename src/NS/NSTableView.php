@@ -245,12 +245,12 @@ class NSTableView extends NSControl
         return $this;
     }
 
-    public function columnWithIdentifier(int $identifier): int
+    public function columnWithIdentifier(string $identifier): int
     {
         return ExtNSTableView::columnWithIdentifier($this->handle, $identifier);
     }
 
-    public function tableColumnWithIdentifier(int $identifier): ?ObjCObject
+    public function tableColumnWithIdentifier(string $identifier): ?ObjCObject
     {
         return ObjCObject::box(ExtNSTableView::tableColumnWithIdentifier($this->handle, $identifier));
     }
@@ -621,7 +621,7 @@ class NSTableView extends NSControl
         return ExtNSTableView::autosaveName($this->handle);
     }
 
-    public function setAutosaveName(int $autosaveName): static
+    public function setAutosaveName(string $autosaveName): static
     {
         ExtNSTableView::setAutosaveName($this->handle, $autosaveName);
 
@@ -695,7 +695,7 @@ class NSTableView extends NSControl
         return ExtNSTableView::columnForView($this->handle, $view);
     }
 
-    public function makeViewWithIdentifierOwner(int $identifier, int $owner): ?ObjCObject
+    public function makeViewWithIdentifierOwner(string $identifier, int $owner): ?ObjCObject
     {
         return ObjCObject::box(ExtNSTableView::makeViewWithIdentifierOwner($this->handle, $identifier, $owner));
     }
@@ -778,7 +778,7 @@ class NSTableView extends NSControl
         return ObjCObject::box(ExtNSTableView::hiddenRowIndexes($this->handle));
     }
 
-    public function registerNibForIdentifier(int $nib, int $identifier): static
+    public function registerNibForIdentifier(int $nib, string $identifier): static
     {
         ExtNSTableView::registerNibForIdentifier($this->handle, $nib, $identifier);
 

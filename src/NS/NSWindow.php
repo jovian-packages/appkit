@@ -499,7 +499,7 @@ class NSWindow extends NSResponder
         return ExtNSWindow::tryToPerformWith($this->handle, $action, $object);
     }
 
-    public function validRequestorForSendTypeReturnType(int $sendType, int $returnType): ?ObjCObject
+    public function validRequestorForSendTypeReturnType(string $sendType, string $returnType): ?ObjCObject
     {
         return ObjCObject::box(ExtNSWindow::validRequestorForSendTypeReturnType($this->handle, $sendType, $returnType));
     }
@@ -1042,31 +1042,31 @@ class NSWindow extends NSResponder
         return ExtNSWindow::stringWithSavedFrame($this->handle);
     }
 
-    public function setFrameFromString(int $string): static
+    public function setFrameFromString(string $string): static
     {
         ExtNSWindow::setFrameFromString($this->handle, $string);
 
         return $this;
     }
 
-    public function saveFrameUsingName(int $name): static
+    public function saveFrameUsingName(string $name): static
     {
         ExtNSWindow::saveFrameUsingName($this->handle, $name);
 
         return $this;
     }
 
-    public function setFrameUsingNameForce(int $name, bool $force): bool
+    public function setFrameUsingNameForce(string $name, bool $force): bool
     {
         return ExtNSWindow::setFrameUsingNameForce($this->handle, $name, $force);
     }
 
-    public function setFrameUsingName(int $name): bool
+    public function setFrameUsingName(string $name): bool
     {
         return ExtNSWindow::setFrameUsingName($this->handle, $name);
     }
 
-    public function setFrameAutosaveName(int $name): bool
+    public function setFrameAutosaveName(string $name): bool
     {
         return ExtNSWindow::setFrameAutosaveName($this->handle, $name);
     }
@@ -1076,7 +1076,7 @@ class NSWindow extends NSResponder
         return ExtNSWindow::frameAutosaveName($this->handle);
     }
 
-    public static function removeFrameUsingName(int $name): void
+    public static function removeFrameUsingName(string $name): void
     {
         ExtNSWindow::removeFrameUsingName($name);
     }
@@ -1473,7 +1473,7 @@ class NSWindow extends NSResponder
         return ExtNSWindow::tabbingIdentifier($this->handle);
     }
 
-    public function setTabbingIdentifier(int $tabbingIdentifier): static
+    public function setTabbingIdentifier(string $tabbingIdentifier): static
     {
         ExtNSWindow::setTabbingIdentifier($this->handle, $tabbingIdentifier);
 
@@ -1559,7 +1559,7 @@ class NSWindow extends NSResponder
         return ObjCObject::box(ExtNSWindow::nextEventMatchingMask($this->handle, $mask));
     }
 
-    public function nextEventMatchingMaskUntilDateInModeDequeue(int $mask, int $expiration, int $mode, bool $deqFlag): ?ObjCObject
+    public function nextEventMatchingMaskUntilDateInModeDequeue(int $mask, int $expiration, string $mode, bool $deqFlag): ?ObjCObject
     {
         return ObjCObject::box(ExtNSWindow::nextEventMatchingMaskUntilDateInModeDequeue($this->handle, $mask, $expiration, $mode, $deqFlag));
     }

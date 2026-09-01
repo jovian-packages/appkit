@@ -34,9 +34,12 @@ final class ClassMap
     private static function map(): array
     {
         return [
+            'AVPlayer' => \Jovian\Bindings\AppKit\AV\AVPlayer::class,
+            'AVPlayerView' => \Jovian\Bindings\AppKit\AV\AVPlayerView::class,
             'CALayer' => \Jovian\Bindings\AppKit\QuartzCore\CALayer::class,
             'NSAlert' => \Jovian\Bindings\AppKit\NS\NSAlert::class,
             'NSApplication' => \Jovian\Bindings\AppKit\NS\NSApplication::class,
+            'NSAttributedString' => \Jovian\Bindings\AppKit\NS\NSAttributedString::class,
             'NSBox' => \Jovian\Bindings\AppKit\NS\NSBox::class,
             'NSButton' => \Jovian\Bindings\AppKit\NS\NSButton::class,
             'NSCell' => \Jovian\Bindings\AppKit\NS\NSCell::class,
@@ -118,6 +121,7 @@ final class ClassMap
             'NSToolbar' => \Jovian\Bindings\AppKit\NS\NSToolbar::class,
             'NSToolbarItem' => \Jovian\Bindings\AppKit\NS\NSToolbarItem::class,
             'NSToolbarItemGroup' => \Jovian\Bindings\AppKit\NS\NSToolbarItemGroup::class,
+            'NSURL' => \Jovian\Bindings\AppKit\NS\NSURL::class,
             'NSView' => \Jovian\Bindings\AppKit\NS\NSView::class,
             'NSViewController' => \Jovian\Bindings\AppKit\NS\NSViewController::class,
             'NSVisualEffectView' => \Jovian\Bindings\AppKit\NS\NSVisualEffectView::class,
@@ -131,9 +135,12 @@ final class ClassMap
     private static function lineage(string $objcName): array
     {
         $tree = [
+            'AVPlayer' => ['NSObject'],
+            'AVPlayerView' => ['NSView', 'NSResponder', 'NSObject'],
             'CALayer' => ['NSObject'],
             'NSAlert' => ['NSObject'],
             'NSApplication' => ['NSResponder', 'NSObject'],
+            'NSAttributedString' => ['NSObject'],
             'NSBox' => ['NSView', 'NSResponder', 'NSObject'],
             'NSButton' => ['NSControl', 'NSView', 'NSResponder', 'NSObject'],
             'NSCell' => ['NSObject'],
@@ -215,6 +222,7 @@ final class ClassMap
             'NSToolbar' => ['NSObject'],
             'NSToolbarItem' => ['NSObject'],
             'NSToolbarItemGroup' => ['NSToolbarItem', 'NSObject'],
+            'NSURL' => ['NSObject'],
             'NSView' => ['NSResponder', 'NSObject'],
             'NSViewController' => ['NSResponder', 'NSObject'],
             'NSVisualEffectView' => ['NSView', 'NSResponder', 'NSObject'],

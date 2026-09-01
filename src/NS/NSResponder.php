@@ -45,7 +45,7 @@ class NSResponder extends ObjCObject
         return ExtNSResponder::performKeyEquivalent($this->handle, $event);
     }
 
-    public function validRequestorForSendTypeReturnType(int $sendType, int $returnType): ?ObjCObject
+    public function validRequestorForSendTypeReturnType(string $sendType, string $returnType): ?ObjCObject
     {
         return ObjCObject::box(ExtNSResponder::validRequestorForSendTypeReturnType($this->handle, $sendType, $returnType));
     }
