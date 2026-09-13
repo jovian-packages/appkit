@@ -24,6 +24,7 @@ Six classes, five of them hand-written. Everything under `src/NS/`,
 | `Registry` | The identity map: `int $handle` → `WeakReference<ObjCObject>`. |
 | `Lifetime` | Shutdown flag, plus `reset()` for tests. |
 | `Bridge` | Projection of `AppKit\Bridge\Bridge`, and the boxing boundary for callbacks. |
+| `pointerOf` / `adopt` | The ext-metal seam (added ext-appkit 0.8.1): `Bridge::pointerOf($handle)` hands out the raw pointer bits of a registry object (0 for invalid); `Bridge::adopt($className, $pointerBits)` wraps a foreign raw pointer into this registry, retained (0 for NULL, or for a kind-of mismatch when `$className` resolves — unchecked when the name is unresolvable here, e.g. a class another extension owns such as `CAMetalLayer`). `ObjCObject::pointerOf()` mirrors the query side on a boxed instance; there is no `adopt`-and-box factory here, because pairing `adopt()` with `box()` is composition, and composition belongs in `jovian/venusian-appkit`. |
 | `Delegate` | Wraps `delegateNew`/`delegateOn`/`delegateOff`. |
 | `ClassMap` | **Generated.** `ObjC class name` → PHP class, for choosing a class when boxing. |
 

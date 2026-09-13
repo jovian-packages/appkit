@@ -48,6 +48,11 @@ class ObjCObject
         return Bridge::isKindOfClass($this->handle, $className);
     }
 
+    public function pointerOf(): int
+    {
+        return Bridge::pointerOf($this->handle);
+    }
+
     public function onAction(callable $callback): bool
     {
         return Bridge::setAction($this->handle, $callback);

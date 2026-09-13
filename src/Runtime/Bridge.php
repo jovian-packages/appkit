@@ -35,6 +35,16 @@ final class Bridge
         return ExtBridge::isKindOfClass($handle, $className);
     }
 
+    public static function pointerOf(int $handle): int
+    {
+        return ExtBridge::pointerOf($handle);
+    }
+
+    public static function adopt(string $className, int $pointerBits): int
+    {
+        return ExtBridge::adopt($className, $pointerBits);
+    }
+
     public static function pump(float $timeout): int
     {
         return ExtBridge::pump($timeout);

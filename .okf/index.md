@@ -27,8 +27,8 @@ only the concepts the task needs.
 
 | | |
 |---|---|
-| Version | 0.8.0, PHP `^8.4`, requires `ext-appkit` `^0.8.0`, macOS only |
+| Version | 0.8.2, PHP `^8.4`, requires `ext-appkit` `^0.8.2`, macOS only |
 | Namespace | `Jovian\Bindings\AppKit\` |
-| Generated | 88 classes / 3,601 methods, 138 enums / 767 cases |
+| Generated | 97 classes / 3,756 methods (0.8.2 adds NSOpenGLPixelFormat, NSOpenGLContext, NSOpenGLView) |
 | Hand-written | `src/Runtime/` (5 of 6; `ClassMap` is generated), `src/Values/` (5 structs) |
-| Returns | 687 handles, 145 enums, 192 structs |
+| Returns | 716 handles, 153 enums, 192 structs (measured by the gates, 0.8.2) |

@@ -18,7 +18,7 @@ This package ships an Open Knowledge Format bundle at [`.okf/`](.okf/) (excluded
 6. **Object parameters are `int` handles.** Only returns and callback arguments are boxed. Pass `$obj->handle`.
 7. **PHP refcount owns the handle.** Boxing retains, `__destruct` releases. The identity map holds weak references; a destructor evicts its registry entry only if that entry still points at itself, because handles get recycled; and destructors stop releasing once `Lifetime::isShuttingDown()`, because releasing after `NSApp` teardown is a crash while leaking at exit is correct.
 8. **Enums are int-backed with FULLY UPPERCASE cases. No class constants anywhere.** Prefer `is_null($x)` over `$x === null`. Gate: `verify-style.mjs`.
-9. **Counting annotations? Match `@zep(?:-construct)?`.** A pattern that excludes the construct form undercounts by 51, spread across 46 classes declared in 39 header files — several headers declare more than one class, so counting headers understates the damage. The extension declares 3,614 annotations; 13 are `AppKit\Bridge\Bridge`, which this package projects by hand, leaving the 3,601 that generate.
+9. **Counting annotations? Match `@zep(?:-construct)?`.** A pattern that excludes the construct form undercounts by 55, spread across the classes that use it — several headers declare more than one class, so counting headers understates the damage. The extension declares 3,771 annotations (ext-appkit 0.8.2); 15 are `AppKit\Bridge\Bridge` (13 handle/pump/target-action/delegate calls, plus `pointerOf`/`adopt` — the ext-metal pointer seam — added in ext-appkit 0.8.1), which this package projects by hand, leaving the 3,756 that generate.
 
 ## Verification
 
@@ -26,9 +26,9 @@ Work in this package is gated. Ledgers live in `.unlazy/appkit-bindings/`; do no
 
 ```bash
 php scripts/generate.php --check --ext=../../php-io-extensions/appkit   # GEN_OK
-node scripts/gates/verify-parity.mjs             # PARITY_OK       3601 = 3601
-node scripts/gates/verify-return-typing.mjs      # RETURN_TYPING_OK 687 boxed
-node scripts/gates/verify-enum-typing.mjs        # ENUM_TYPING_OK   145 enum returns
+node scripts/gates/verify-parity.mjs             # PARITY_OK       files=97
+node scripts/gates/verify-return-typing.mjs      # RETURN_TYPING_OK 716 boxed
+node scripts/gates/verify-enum-typing.mjs        # ENUM_TYPING_OK   153 enum returns
 node scripts/gates/verify-reflection.mjs         # REFLECTION_OK    needs ext loaded
 node scripts/gates/verify-darwin-control.mjs reflection  # DARWIN_CONTROL_CONSISTENT
 node scripts/gates/verify-style.mjs              # STYLE_OK

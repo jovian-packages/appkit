@@ -1,5 +1,83 @@
 # Change log
 
+## 2026-09-13 (windowed OpenGL — NSOpenGLPixelFormat / NSOpenGLContext / NSOpenGLView, 0.8.2)
+* **Generation**: ext-appkit 0.8.2's three windowed-GL classes project without
+  a hand-written line: `NSOpenGLPixelFormat` (5), `NSOpenGLContext` (25),
+  `NSOpenGLView` (14), and the enum miner picked up
+  `NSOpenGLContextParameter` (15 cases) on the way.
+  `joined=3756 bridge=15 GEN_OK`, 97 generated classes. Those classes are
+  `API_DEPRECATED` in their entirety and bound anyway under ext-appkit's
+  `@audit deprecated-class` exemption; that is the extension's ruling to
+  make, and this package simply projects what the annotations say.
+* **Generator**: two SDK shapes the join had never met.
+  (1) **C array parameters.** `initWithAttributes:`
+  (`const NSOpenGLPixelFormatAttribute *`) and `setValues:forParameter:`
+  (`const GLint *`) are plain C arrays the extension marshals from a PHP list
+  of ints, not ObjC collections. A `GLint *` looks exactly like an
+  out-parameter and would have been skipped; an NS-prefixed pointer would
+  have been typed as a handle. `TypeJoin` now consults the annotation first:
+  an aligned `@zep` parameter of type `array` whose SDK type is
+  pointer-valued but not a collection (`TypeName::isCScalarArray`) is an
+  inbound C array and types as `array`. The annotation is the only thing that
+  can tell a C array from an out-parameter — the SDK spells them identically.
+  (2) **GL scalar typedefs.** `GLint`, `GLuint`, `GLsizei`, `GLenum`,
+  `GLbitfield`, `GLboolean`, `GLbyte`, `GLubyte`, `GLshort`, `GLushort`,
+  `GLfloat`, `GLdouble` joined `TypeName::isPrimitive`, which is what makes
+  `GLint *` read as an out-pointer and a `GLint` return not read as a handle.
+  `CGLContextObj` / `CGLPixelFormatObj` needed nothing: they are
+  pointer-valued typedefs written without a `*`, so they already projected as
+  plain `int` pointer bits, never boxed — which is right, because that is the
+  currency `OpenGL\CGL\CGL` speaks.
+  The regeneration diff is the proof the change is scoped: only the four new
+  files, `ClassMap`, and the three join sidecars moved. No existing generated
+  method changed.
+* **Gates**: `PARITY_OK` (files=97 written=97, BOXED=716 ENUM_RETURNS=153
+  STRUCT_RETURNS=192), `RETURN_TYPING_OK` (716 handle returns),
+  `ENUM_TYPING_OK` (enum_params=249 enum_returns=153 options_leaked=0),
+  `REFLECTION_OK` (files=97 calls=3756, control mistype still caught),
+  `DARWIN_CONTROL_CONSISTENT`, `STYLE_OK`. `vendor/bin/pest`: 72 passed,
+  3,883 assertions, `SMOKE_OK`.
+* **Proof**: `examples/proof_nsopengl_typed.php` →
+  `PROOF_NSOPENGL_TYPED_OK`. The DTO port of ext-appkit's
+  `examples/proof_nsopengl.php`: an `NSOpenGLView` on a 4.1 core pixel format
+  inside a real `NSWindow`, the swap interval set through
+  `NSOpenGLContextParameter::SWAP_INTERVAL`, the frame drawn by
+  php-io-extensions/opengl and byte-checked out of `glReadPixels` (centre
+  255,128,64,255; corner 0,0,0,255) before the swap, then 555 frames in 2.00s
+  through `Bridge::pump` on an M1 Pro. `NSOpenGLContext::CGLContextObj()` and
+  `CGL::CGLGetCurrentContext()` are asserted to be the same address.
+  The OpenGL calls stay on the raw `OpenGL\*` extension classes rather than
+  `jovian/ogx`: that package is a sibling checkout, not a dependency, and
+  requiring its autoloader by relative path would couple two jovian packages
+  that are deliberately independent.
+* **Version**: 0.8.0 → 0.8.2, `ext-appkit` `^0.8.0` → `^0.8.2` (the wave needs
+  the three classes, so the constraint has to say so). The fast-facts counts
+  in this bundle had been stale at 687/145 since the NSDateFormatter wave and
+  now quote what the gates measured.
+
+
+## 2026-09-13 (Bridge pointerOf/adopt — ext-metal seam)
+* **Runtime**: ext-appkit 0.8.1 adds `Bridge::pointerOf(int $handle): int` and
+  `Bridge::adopt(string $className, int $pointerBits): int` — the only
+  inter-extension currency, raw pointer bits, so a `CAMetalLayer` minted by
+  ext-metal can be adopted here and a registry object here can be handed to
+  ext-metal. Projected by hand in `src/Runtime/Bridge.php`, same shape as every
+  other Bridge call: one extension call, same arguments, same order.
+  `ObjCObject::pointerOf()` mirrors the query side on a boxed instance; `adopt`
+  stays a bare `Bridge` call because pairing it with `box()` would be
+  composition, out of scope here (see `.okf/projection-rule.md`). Bridge grows
+  from 13 to 15 hand-projected annotations; the generated tree is untouched
+  (`joined=3712 bridge=15 GEN_OK`). `vendor/bin/pest` green.
+
+## 2026-09-12 (NSDateFormatter + NSIndexSet)
+* **Generation**: `NSDateFormatter` (full Foundation join, `NSDateFormatterStyle` /
+  `NSDateFormatterBehavior` / `NSFormattingContext` enums) and curated `NSIndexSet`
+  (`indexSet`, `indexSetWithIndex:`, `containsIndex:`) emit from the new ext-appkit
+  annotations. `Amsymbol` / `Pmsymbol` sit in the selector-exceptions table (Zephir
+  all-caps rule). The enum miner now walks CoreFoundation before Foundation so
+  `NSDateFormatterStyle` can resolve `kCFDateFormatter*` aliases (No/Short/Medium/
+  Long/Full). `joined=3712 bridge=13 GEN_OK`. `vendor/bin/pest` green.
+
 ## 2026-08-31 (AV segment)
 * **Generation**: the emitter, `Framework` map, enum miner and gates learn the `AV\`
   namespace segment (AVKit, falling back to AVFoundation for headers) alongside

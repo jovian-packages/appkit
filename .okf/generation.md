@@ -47,20 +47,49 @@ defect that came from breaking it.
 
 ## Counting
 
-3,614 annotations, of which 51 are `@zep-construct`. 13 belong to
-`AppKit\Bridge\Bridge`, which is projected by hand in `src/Runtime/Bridge.php`
-rather than generated. **3,601 generate**, across 88 classes.
+3,771 annotations (ext-appkit 0.8.2), of which 55 are `@zep-construct`. 15
+belong to `AppKit\Bridge\Bridge`, which is projected by hand in
+`src/Runtime/Bridge.php` rather than generated — 13 for handles, pump,
+target/action and delegates, plus `pointerOf`/`adopt`, the ext-metal pointer
+seam added in ext-appkit 0.8.1. **3,756 generate**, across 97 classes.
 
 Two counting traps, both of which have bitten:
 
-- A pattern that matches `@zep` but not `@zep-construct` undercounts by 51 and
-  reports phantom mismatches on the 46 classes that use it. Those 46 live in 39
-  header files — `ns-gridview.h` alone declares `NSGridRow`, `NSGridColumn` and
-  `NSGridCell` — so counting headers and calling them classes understates it.
+- A pattern that matches `@zep` but not `@zep-construct` undercounts and
+  reports phantom mismatches on the classes that use it — several headers
+  declare more than one class (`ns-gridview.h` alone declares `NSGridRow`,
+  `NSGridColumn` and `NSGridCell`), so counting headers and calling them
+  classes understates it.
 - Counting `-> int` annotations to estimate handles conflates handles with
-  integers and enums. The honest count comes from the join: 687 handles, 145
-  enum returns, 192 struct returns.
+  integers and enums. The honest count comes from the join: 716 handles, 153
+  enum returns, 192 struct returns. (The figures in this bundle are whatever
+  the gates last measured; they were stale at 687/145 for two waves before
+  0.8.2, which is its own small lesson — quote the gate, not the memory.)
 
+## C array parameters
+
+Most parameters typed `array` in an annotation are ObjC collections —
+`NSArray<NSView *> *`, `NSSet<NSIndexPath *> *`. Two are not: ext-appkit 0.8.2
+binds `NSOpenGLPixelFormat::initWithAttributes:`
+(`const NSOpenGLPixelFormatAttribute *`) and
+`NSOpenGLContext::setValues:forParameter:` (`const GLint *`), which are plain
+C arrays the extension marshals from a PHP list of ints.
+
+Both would otherwise be mis-read by the join. A `GLint *` looks like an
+out-parameter and would be skipped; a `const NSOpenGLPixelFormatAttribute *`
+is NS-prefixed and pointer-valued, so it would have been typed as a handle.
+`TypeJoin` therefore consults the annotation first: when the aligned `@zep`
+parameter says `array` and the SDK type is pointer-valued but not one of the
+collection types (`TypeName::isCScalarArray`), the parameter is an inbound C
+array and is typed `array`. The annotation is the only thing that can tell a
+C array from an out-parameter, because the SDK spells them identically.
+
+The GL scalar typedefs (`GLint`, `GLenum`, `GLsizei`, …) are also registered
+in `TypeName::isPrimitive`, which is what makes `GLint *` read as an
+out-pointer and a `GLint` return not read as a handle. `CGLContextObj` and
+`CGLPixelFormatObj` are pointer-valued typedefs written without a `*`, so
+they already returned plain `int` — pointer bits, never boxed, which is
+correct: they are the currency ext-opengl's `OpenGL\CGL\CGL` speaks.
 ## Hard-fail posture
 
 An annotation that cannot be matched to an SDK declaration is a **fatal error**,

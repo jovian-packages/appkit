@@ -75,3 +75,37 @@ it('wraps delegateNew, delegateOn, and delegateOff', function () {
 
     $delegate->off('windowShouldClose:');
 });
+
+it('returns 0 from pointerOf and adopt for invalid input', function () {
+    expect(Bridge::pointerOf(0))->toBe(0)
+        ->and(Bridge::adopt('NSObject', 0))->toBe(0);
+});
+
+it('round-trips a handle through the pointer seam', function () {
+    $handle = appkitViewHandle();
+    $pointer = Bridge::pointerOf($handle);
+
+    expect($pointer)->not->toBe(0);
+
+    $adopted = Bridge::adopt('NSView', $pointer);
+
+    expect($adopted)->not->toBe(0)
+        ->and(Bridge::isValid($adopted))->toBeTrue()
+        ->and(ObjCObject::box($adopted)?->className())->toBe('NSView');
+});
+
+it('rejects adopt when the pointer is not kind-of the named class', function () {
+    $handle = appkitViewHandle();
+    $pointer = Bridge::pointerOf($handle);
+
+    expect(Bridge::adopt('NSWindow', $pointer))->toBe(0);
+});
+
+it('mirrors Bridge::pointerOf on the instance', function () {
+    $handle = appkitViewHandle();
+    $object = ObjCObject::box($handle);
+
+    expect($object)->not->toBeNull()
+        ->and($object->pointerOf())->toBe(Bridge::pointerOf($handle))
+        ->and($object->pointerOf())->not->toBe(0);
+});

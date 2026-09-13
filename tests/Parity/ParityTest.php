@@ -144,7 +144,11 @@ function appkitParseZepAnnotations(string $extRoot): array
                 $short = (string) basename(str_replace('\\', '/', $fqcn));
                 $withConstruct[$short][] = $match[2];
                 $ns = explode('\\', $fqcn)[0];
-                $dtoFiles[$short] = $ns === 'QuartzCore' ? 'src/QuartzCore/' . $short . '.php' : 'src/NS/' . $short . '.php';
+                $dtoFiles[$short] = match ($ns) {
+                    'QuartzCore' => 'src/QuartzCore/' . $short . '.php',
+                    'AV' => 'src/AV/' . $short . '.php',
+                    default => 'src/NS/' . $short . '.php',
+                };
             }
         }
         if (preg_match_all('/\/\*@zep\s+(\S+)\s+(\w+)\s*\(/', $text, $matches, PREG_SET_ORDER) > 0) {
@@ -209,7 +213,7 @@ function appkitDtoRelPaths(): array
 {
     $root = dirname(__DIR__, 2);
     $out = [];
-    foreach (['NS' => 'src/NS', 'QuartzCore' => 'src/QuartzCore'] as $prefix) {
+    foreach (['src/NS', 'src/QuartzCore', 'src/AV'] as $prefix) {
         foreach (glob($root . '/' . $prefix . '/*.php') ?: [] as $path) {
             $out[] = $prefix . '/' . basename($path);
         }
@@ -228,6 +232,7 @@ function appkitDtoAbsPaths(): array
     return [
         ...(glob($root . '/src/NS/*.php') ?: []),
         ...(glob($root . '/src/QuartzCore/*.php') ?: []),
+        ...(glob($root . '/src/AV/*.php') ?: []),
     ];
 }
 
