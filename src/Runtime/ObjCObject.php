@@ -63,7 +63,7 @@ class ObjCObject
         return Bridge::observeNotification($this->handle, $name, $callback);
     }
 
-    public function removeObserver(int $token): void
+    public function offNotification(int $token): void
     {
         Bridge::removeObserver($token);
     }

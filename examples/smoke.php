@@ -118,7 +118,7 @@ $token = $win->onNotification('NSWindowDidResizeNotification', function (?ObjCOb
 check($token !== 0, 'OBSERVE_TOKEN_OK');
 $win->setFrameDisplay(new NSRect(240.0, 240.0, 500.0, 300.0), true);
 check($resized, 'RESIZE_OK');
-$win->removeObserver($token);
+$win->offNotification($token);
 
 /* ---- delegate: windowShouldClose: returns false, window survives ---- */
 $asked = false;

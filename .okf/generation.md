@@ -14,8 +14,8 @@ generated:
 
 # Generation
 
-`src/NS/**`, `src/QuartzCore/**`, `src/Enums/**` and `Runtime/ClassMap.php` are
-generated. Nothing in them is hand-edited, ever. Everything else is hand-written.
+`src/NS/**`, `src/QuartzCore/**`, `src/AV/**`, `src/GC/**`, `src/Enums/**` and
+`Runtime/ClassMap.php` are generated. Nothing in them is hand-edited, ever. Everything else is hand-written.
 
 ```bash
 php scripts/generate.php --check --ext=../../php-io-extensions/appkit   # join only
@@ -47,11 +47,11 @@ defect that came from breaking it.
 
 ## Counting
 
-3,771 annotations (ext-appkit 0.8.2), of which 55 are `@zep-construct`. 15
+3,816 annotations (ext-appkit 0.8.0 line), of which 55 are `@zep-construct`. 17
 belong to `AppKit\Bridge\Bridge`, which is projected by hand in
 `src/Runtime/Bridge.php` rather than generated — 13 for handles, pump,
-target/action and delegates, plus `pointerOf`/`adopt`, the ext-metal pointer
-seam added in ext-appkit 0.8.1. **3,756 generate**, across 97 classes.
+target/action and delegates, `pointerOf`/`adopt` (ext-metal pointer seam) and
+`watchInput`/`drainInput` (input tap). **3,799 generate**, across 103 classes.
 
 Two counting traps, both of which have bitten:
 
@@ -90,6 +90,33 @@ out-pointer and a `GLint` return not read as a handle. `CGLContextObj` and
 `CGLPixelFormatObj` are pointer-valued typedefs written without a `*`, so
 they already returned plain `int` — pointer bits, never boxed, which is
 correct: they are the currency ext-opengl's `OpenGL\CGL\CGL` speaks.
+## Namespace segments
+
+`Framework` maps the annotation's first segment to an SDK framework:
+`NS` → AppKit (fallback Foundation), `QuartzCore` → QuartzCore, `AV` →
+AVFoundation (fallback AVKit), `GC` → GameController. A new segment is added in
+the same places each time: `Framework`, `SdkHeaderResolver::headerForObjCName`,
+the four `Emitter` match tables, `EnumMiner` framework lists,
+`TypeName::isHandleType`/`isObject` prefix (GC classes are handles; AV is not
+in that prefix, so `AVPlayerView::player()` returns `int`), `lib.mjs`
+`dtoRelPathForFqcn`, the parity / reflection / enum-typing / enums gate
+directory and framework lists, and the Parity / DtoCallsExist tests.
+
+## Adopted-protocol members (`@audit adopts`)
+
+`vendorName` / `productCategory` are `GCDevice` protocol properties, not
+`GCController` members. ext-appkit marks the binding
+`/*@audit adopts GC\GCController GCDevice <reason> */`. The generator reads the
+same marker (`AnnotationParser::parseAdoptions`) and `SdkParser` folds that
+protocol's `@protocol` body into the class (class declarations win on a clash).
+Hard fail when the marker has no reason, the class's `@interface` line does not
+list the protocol, or the framework does not define it. `generate.php` prints
+`adopts: <class> <protocols>` before `GEN_OK`. Without the marker the two
+annotations are unmatched.
+
+Property attributes are whitespace-normalized: GameController writes
+`getter = isPressed`, AppKit `getter=isHidden`.
+
 ## Hard-fail posture
 
 An annotation that cannot be matched to an SDK declaration is a **fatal error**,
@@ -114,3 +141,7 @@ identifiers as constants); irregular cases are listed rather than pattern-matche
 
 Parity counts methods, not signatures — which is precisely how 1,010 wrongly
 boxed returns passed it. A gate proves what it measures and nothing adjacent.
+
+# String typedefs
+
+An NSString-backed typedef (`typedef NSString *X NS_TYPED_ENUM` / `NS_TYPED_EXTENSIBLE_ENUM` / `NS_STRING_ENUM` / `NS_EXTENSIBLE_STRING_ENUM`) is a string, not a handle. `StringTypedefs::names()` reads them from the SDK headers; `TypeJoin` projects a bare one as `string` when the ext annotation says `string` (the annotation stays the authority). `X *` is a pointer and stays a handle.

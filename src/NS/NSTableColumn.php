@@ -17,7 +17,7 @@ use Jovian\Bindings\AppKit\Values\NSSize;
  */
 class NSTableColumn extends ObjCObject
 {
-    public static function initWithIdentifier(int $identifier): ?ObjCObject
+    public static function initWithIdentifier(string $identifier): ?ObjCObject
     {
         return ObjCObject::box(ExtNSTableColumn::initWithIdentifier($identifier));
     }
@@ -27,7 +27,7 @@ class NSTableColumn extends ObjCObject
         return ExtNSTableColumn::identifier($this->handle);
     }
 
-    public function setIdentifier(int $identifier): static
+    public function setIdentifier(string $identifier): static
     {
         ExtNSTableColumn::setIdentifier($this->handle, $identifier);
 

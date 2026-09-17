@@ -50,6 +50,28 @@ final class Bridge
         return ExtBridge::pump($timeout);
     }
 
+    public static function watchInput(int $mask): void
+    {
+        ExtBridge::watchInput($mask);
+    }
+
+    /**
+     * @return list<array<string, mixed>> the recorded events, oldest first
+     */
+    public static function drainInput(): array
+    {
+        return ExtBridge::drainInput();
+    }
+
+    /**
+     * Consume unclaimed keyDown / keyUp (after recording) in these windows.
+     * @param list<int> $windowNumbers
+     */
+    public static function swallowKeysIn(array $windowNumbers): void
+    {
+        ExtBridge::swallowKeysIn($windowNumbers);
+    }
+
     public static function setAction(int $handle, callable $callable): bool
     {
         return ExtBridge::setAction($handle, static function (int $sender) use ($callable): mixed {

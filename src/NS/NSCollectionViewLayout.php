@@ -41,7 +41,7 @@ class NSCollectionViewLayout extends ObjCObject
         return $this;
     }
 
-    public function registerNibForDecorationViewOfKind(int $nib, int $elementKind): static
+    public function registerNibForDecorationViewOfKind(int $nib, string $elementKind): static
     {
         ExtNSCollectionViewLayout::registerNibForDecorationViewOfKind($this->handle, $nib, $elementKind);
 
@@ -65,12 +65,12 @@ class NSCollectionViewLayout extends ObjCObject
         return ObjCObject::box(ExtNSCollectionViewLayout::layoutAttributesForItemAtIndexPath($this->handle, $indexPath));
     }
 
-    public function layoutAttributesForSupplementaryViewOfKindAtIndexPath(int $elementKind, int $indexPath): ?ObjCObject
+    public function layoutAttributesForSupplementaryViewOfKindAtIndexPath(string $elementKind, int $indexPath): ?ObjCObject
     {
         return ObjCObject::box(ExtNSCollectionViewLayout::layoutAttributesForSupplementaryViewOfKindAtIndexPath($this->handle, $elementKind, $indexPath));
     }
 
-    public function layoutAttributesForDecorationViewOfKindAtIndexPath(int $elementKind, int $indexPath): ?ObjCObject
+    public function layoutAttributesForDecorationViewOfKindAtIndexPath(string $elementKind, int $indexPath): ?ObjCObject
     {
         return ObjCObject::box(ExtNSCollectionViewLayout::layoutAttributesForDecorationViewOfKindAtIndexPath($this->handle, $elementKind, $indexPath));
     }
@@ -179,42 +179,42 @@ class NSCollectionViewLayout extends ObjCObject
         return ObjCObject::box(ExtNSCollectionViewLayout::finalLayoutAttributesForDisappearingItemAtIndexPath($this->handle, $itemIndexPath));
     }
 
-    public function initialLayoutAttributesForAppearingSupplementaryElementOfKindAtIndexPath(int $elementKind, int $elementIndexPath): ?ObjCObject
+    public function initialLayoutAttributesForAppearingSupplementaryElementOfKindAtIndexPath(string $elementKind, int $elementIndexPath): ?ObjCObject
     {
         return ObjCObject::box(ExtNSCollectionViewLayout::initialLayoutAttributesForAppearingSupplementaryElementOfKindAtIndexPath($this->handle, $elementKind, $elementIndexPath));
     }
 
-    public function finalLayoutAttributesForDisappearingSupplementaryElementOfKindAtIndexPath(int $elementKind, int $elementIndexPath): ?ObjCObject
+    public function finalLayoutAttributesForDisappearingSupplementaryElementOfKindAtIndexPath(string $elementKind, int $elementIndexPath): ?ObjCObject
     {
         return ObjCObject::box(ExtNSCollectionViewLayout::finalLayoutAttributesForDisappearingSupplementaryElementOfKindAtIndexPath($this->handle, $elementKind, $elementIndexPath));
     }
 
-    public function initialLayoutAttributesForAppearingDecorationElementOfKindAtIndexPath(int $elementKind, int $decorationIndexPath): ?ObjCObject
+    public function initialLayoutAttributesForAppearingDecorationElementOfKindAtIndexPath(string $elementKind, int $decorationIndexPath): ?ObjCObject
     {
         return ObjCObject::box(ExtNSCollectionViewLayout::initialLayoutAttributesForAppearingDecorationElementOfKindAtIndexPath($this->handle, $elementKind, $decorationIndexPath));
     }
 
-    public function finalLayoutAttributesForDisappearingDecorationElementOfKindAtIndexPath(int $elementKind, int $decorationIndexPath): ?ObjCObject
+    public function finalLayoutAttributesForDisappearingDecorationElementOfKindAtIndexPath(string $elementKind, int $decorationIndexPath): ?ObjCObject
     {
         return ObjCObject::box(ExtNSCollectionViewLayout::finalLayoutAttributesForDisappearingDecorationElementOfKindAtIndexPath($this->handle, $elementKind, $decorationIndexPath));
     }
 
-    public function indexPathsToDeleteForSupplementaryViewOfKind(int $elementKind): array
+    public function indexPathsToDeleteForSupplementaryViewOfKind(string $elementKind): array
     {
         return ExtNSCollectionViewLayout::indexPathsToDeleteForSupplementaryViewOfKind($this->handle, $elementKind);
     }
 
-    public function indexPathsToDeleteForDecorationViewOfKind(int $elementKind): array
+    public function indexPathsToDeleteForDecorationViewOfKind(string $elementKind): array
     {
         return ExtNSCollectionViewLayout::indexPathsToDeleteForDecorationViewOfKind($this->handle, $elementKind);
     }
 
-    public function indexPathsToInsertForSupplementaryViewOfKind(int $elementKind): array
+    public function indexPathsToInsertForSupplementaryViewOfKind(string $elementKind): array
     {
         return ExtNSCollectionViewLayout::indexPathsToInsertForSupplementaryViewOfKind($this->handle, $elementKind);
     }
 
-    public function indexPathsToInsertForDecorationViewOfKind(int $elementKind): array
+    public function indexPathsToInsertForDecorationViewOfKind(string $elementKind): array
     {
         return ExtNSCollectionViewLayout::indexPathsToInsertForDecorationViewOfKind($this->handle, $elementKind);
     }

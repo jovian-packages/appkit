@@ -452,7 +452,7 @@ class NSTextView extends NSText
         return ExtNSTextView::writablePasteboardTypes($this->handle);
     }
 
-    public function writeSelectionToPasteboardType(int $pboard, int $type): bool
+    public function writeSelectionToPasteboardType(int $pboard, string $type): bool
     {
         return ExtNSTextView::writeSelectionToPasteboardType($this->handle, $pboard, $type);
     }
@@ -472,7 +472,7 @@ class NSTextView extends NSText
         return ExtNSTextView::preferredPasteboardTypeFromArrayRestrictedToTypesFromArray($this->handle, $availableTypes, $allowedTypes);
     }
 
-    public function readSelectionFromPasteboardType(int $pboard, int $type): bool
+    public function readSelectionFromPasteboardType(int $pboard, string $type): bool
     {
         return ExtNSTextView::readSelectionFromPasteboardType($this->handle, $pboard, $type);
     }
@@ -521,7 +521,7 @@ class NSTextView extends NSText
         return ExtNSTextView::acceptableDragTypes($this->handle);
     }
 
-    public function dragOperationForDraggingInfoType(int $dragInfo, int $type): int
+    public function dragOperationForDraggingInfoType(int $dragInfo, string $type): int
     {
         return ExtNSTextView::dragOperationForDraggingInfoType($this->handle, $dragInfo, $type);
     }

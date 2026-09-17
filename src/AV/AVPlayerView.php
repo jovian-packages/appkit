@@ -53,7 +53,7 @@ class AVPlayerView extends NSView
         return ExtAVPlayerView::videoGravity($this->handle);
     }
 
-    public function setVideoGravity(int $videoGravity): static
+    public function setVideoGravity(string $videoGravity): static
     {
         ExtAVPlayerView::setVideoGravity($this->handle, $videoGravity);
 

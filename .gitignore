@@ -13,3 +13,4 @@
 .unlazy/**/stamps/
 .unlazy/locks/
 .unlazy-hook-state.json
+composer.lock

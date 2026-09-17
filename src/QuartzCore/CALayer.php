@@ -39,7 +39,7 @@ class CALayer extends ObjCObject
         return ExtCALayer::contentsGravity($this->handle);
     }
 
-    public function setContentsGravity(int $contentsGravity): static
+    public function setContentsGravity(string $contentsGravity): static
     {
         ExtCALayer::setContentsGravity($this->handle, $contentsGravity);
 

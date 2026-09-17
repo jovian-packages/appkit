@@ -318,7 +318,7 @@ class NSFont extends ObjCObject
         return ExtNSFont::renderingMode($this->handle);
     }
 
-    public static function preferredFontForTextStyleOptions(int $style, array $options): ?ObjCObject
+    public static function preferredFontForTextStyleOptions(string $style, array $options): ?ObjCObject
     {
         return ObjCObject::box(ExtNSFont::preferredFontForTextStyleOptions($style, $options));
     }

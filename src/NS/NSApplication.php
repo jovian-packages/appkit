@@ -392,7 +392,7 @@ class NSApplication extends NSResponder
         return ObjCObject::box(ExtNSApplication::currentEvent($this->handle));
     }
 
-    public function nextEventMatchingMaskUntilDateInModeDequeue(int $mask, int $expiration, int $mode, bool $deqFlag): ?ObjCObject
+    public function nextEventMatchingMaskUntilDateInModeDequeue(int $mask, int $expiration, string $mode, bool $deqFlag): ?ObjCObject
     {
         return ObjCObject::box(ExtNSApplication::nextEventMatchingMaskUntilDateInModeDequeue($this->handle, $mask, $expiration, $mode, $deqFlag));
     }

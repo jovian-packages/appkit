@@ -17,7 +17,7 @@ only the concepts the task needs.
 - [return-typing.md](/return-typing.md) — when a return boxes, why the raw SDK
   type is the only sound basis for deciding, and the 1,010-method defect that
   came from deciding it after canonicalization.
-- [enums-and-values.md](/enums-and-values.md) — 138 SDK-mined enums, why
+- [enums-and-values.md](/enums-and-values.md) — SDK-mined enums (146 as of GC), why
   `NS_OPTIONS` stays `int`, the `typedef NSInteger` trap, and the five struct
   value objects.
 - [generation.md](/generation.md) — the annotation × SDK join, the counting
@@ -27,8 +27,8 @@ only the concepts the task needs.
 
 | | |
 |---|---|
-| Version | 0.8.2, PHP `^8.4`, requires `ext-appkit` `^0.8.2`, macOS only |
+| Version | 0.8.0, PHP `^8.4`, requires `ext-appkit` `^0.8.0`, macOS only |
 | Namespace | `Jovian\Bindings\AppKit\` |
-| Generated | 97 classes / 3,756 methods (0.8.2 adds NSOpenGLPixelFormat, NSOpenGLContext, NSOpenGLView) |
+| Generated | 103 classes / 3,799 methods: NS 94, QuartzCore 1, AV 2, GC 6 (GameController) |
 | Hand-written | `src/Runtime/` (5 of 6; `ClassMap` is generated), `src/Values/` (5 structs) |
-| Returns | 716 handles, 153 enums, 192 structs (measured by the gates, 0.8.2) |
+| Returns | 746 handles, 154 enums, 192 structs (gates, after GC) |

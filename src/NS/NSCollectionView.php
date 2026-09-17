@@ -118,7 +118,7 @@ class NSCollectionView extends NSView
         return ObjCObject::box(ExtNSCollectionView::layoutAttributesForItemAtIndexPath($this->handle, $indexPath));
     }
 
-    public function layoutAttributesForSupplementaryElementOfKindAtIndexPath(int $kind, int $indexPath): ?ObjCObject
+    public function layoutAttributesForSupplementaryElementOfKindAtIndexPath(string $kind, int $indexPath): ?ObjCObject
     {
         return ObjCObject::box(ExtNSCollectionView::layoutAttributesForSupplementaryElementOfKindAtIndexPath($this->handle, $kind, $indexPath));
     }
@@ -248,26 +248,26 @@ class NSCollectionView extends NSView
         return $this;
     }
 
-    public function registerNibForItemWithIdentifier(int $nib, int $identifier): static
+    public function registerNibForItemWithIdentifier(int $nib, string $identifier): static
     {
         ExtNSCollectionView::registerNibForItemWithIdentifier($this->handle, $nib, $identifier);
 
         return $this;
     }
 
-    public function registerNibForSupplementaryViewOfKindWithIdentifier(int $nib, int $kind, int $identifier): static
+    public function registerNibForSupplementaryViewOfKindWithIdentifier(int $nib, string $kind, string $identifier): static
     {
         ExtNSCollectionView::registerNibForSupplementaryViewOfKindWithIdentifier($this->handle, $nib, $kind, $identifier);
 
         return $this;
     }
 
-    public function makeItemWithIdentifierForIndexPath(int $identifier, int $indexPath): ?ObjCObject
+    public function makeItemWithIdentifierForIndexPath(string $identifier, int $indexPath): ?ObjCObject
     {
         return ObjCObject::box(ExtNSCollectionView::makeItemWithIdentifierForIndexPath($this->handle, $identifier, $indexPath));
     }
 
-    public function makeSupplementaryViewOfKindWithIdentifierForIndexPath(int $elementKind, int $identifier, int $indexPath): ?ObjCObject
+    public function makeSupplementaryViewOfKindWithIdentifierForIndexPath(string $elementKind, string $identifier, int $indexPath): ?ObjCObject
     {
         return ObjCObject::box(ExtNSCollectionView::makeSupplementaryViewOfKindWithIdentifierForIndexPath($this->handle, $elementKind, $identifier, $indexPath));
     }
@@ -302,17 +302,17 @@ class NSCollectionView extends NSView
         return ObjCObject::box(ExtNSCollectionView::indexPathForItemAtPoint(...[$this->handle, ...$point->toArgs()]));
     }
 
-    public function supplementaryViewForElementKindAtIndexPath(int $elementKind, int $indexPath): ?ObjCObject
+    public function supplementaryViewForElementKindAtIndexPath(string $elementKind, int $indexPath): ?ObjCObject
     {
         return ObjCObject::box(ExtNSCollectionView::supplementaryViewForElementKindAtIndexPath($this->handle, $elementKind, $indexPath));
     }
 
-    public function visibleSupplementaryViewsOfKind(int $elementKind): array
+    public function visibleSupplementaryViewsOfKind(string $elementKind): array
     {
         return ExtNSCollectionView::visibleSupplementaryViewsOfKind($this->handle, $elementKind);
     }
 
-    public function indexPathsForVisibleSupplementaryElementsOfKind(int $elementKind): array
+    public function indexPathsForVisibleSupplementaryElementsOfKind(string $elementKind): array
     {
         return ExtNSCollectionView::indexPathsForVisibleSupplementaryElementsOfKind($this->handle, $elementKind);
     }

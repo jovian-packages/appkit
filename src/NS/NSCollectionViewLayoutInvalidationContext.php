@@ -39,14 +39,14 @@ class NSCollectionViewLayoutInvalidationContext extends ObjCObject
         return $this;
     }
 
-    public function invalidateSupplementaryElementsOfKindAtIndexPaths(int $elementKind, array $indexPaths): static
+    public function invalidateSupplementaryElementsOfKindAtIndexPaths(string $elementKind, array $indexPaths): static
     {
         ExtNSCollectionViewLayoutInvalidationContext::invalidateSupplementaryElementsOfKindAtIndexPaths($this->handle, $elementKind, $indexPaths);
 
         return $this;
     }
 
-    public function invalidateDecorationElementsOfKindAtIndexPaths(int $elementKind, array $indexPaths): static
+    public function invalidateDecorationElementsOfKindAtIndexPaths(string $elementKind, array $indexPaths): static
     {
         ExtNSCollectionViewLayoutInvalidationContext::invalidateDecorationElementsOfKindAtIndexPaths($this->handle, $elementKind, $indexPaths);
 

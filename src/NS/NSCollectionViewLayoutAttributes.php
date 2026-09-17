@@ -110,12 +110,12 @@ class NSCollectionViewLayoutAttributes extends ObjCObject
         return ObjCObject::box(ExtNSCollectionViewLayoutAttributes::layoutAttributesForInterItemGapBeforeIndexPath($indexPath));
     }
 
-    public static function layoutAttributesForSupplementaryViewOfKindWithIndexPath(int $elementKind, int $indexPath): ?ObjCObject
+    public static function layoutAttributesForSupplementaryViewOfKindWithIndexPath(string $elementKind, int $indexPath): ?ObjCObject
     {
         return ObjCObject::box(ExtNSCollectionViewLayoutAttributes::layoutAttributesForSupplementaryViewOfKindWithIndexPath($elementKind, $indexPath));
     }
 
-    public static function layoutAttributesForDecorationViewOfKindWithIndexPath(int $decorationViewKind, int $indexPath): ?ObjCObject
+    public static function layoutAttributesForDecorationViewOfKindWithIndexPath(string $decorationViewKind, int $indexPath): ?ObjCObject
     {
         return ObjCObject::box(ExtNSCollectionViewLayoutAttributes::layoutAttributesForDecorationViewOfKindWithIndexPath($decorationViewKind, $indexPath));
     }

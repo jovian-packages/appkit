@@ -34,8 +34,24 @@ The test for any method: **can it be written as one extension call?**
 | the same handle twice | the same PHP instance twice, `===` |
 | manual `retain`/`release` | PHP refcount ownership; boxing retains, GC releases |
 | structs as loose doubles in, assoc arrays out | `NSRect`, `NSPoint`, `NSSize`, `NSRange`, `NSEdgeInsets` |
-| raw ints for enums | 138 int-backed enums mined from the macOS SDK |
+| raw ints for enums | 146 int-backed enums mined from the macOS SDK |
 | `-> int` for everything | `?ObjCObject` only where the SDK returns an object pointer, `id`, or `instancetype` |
+
+## Frameworks
+
+| Namespace | SDK framework | Classes |
+|---|---|---|
+| `Jovian\Bindings\AppKit\NS` | AppKit (Foundation fallback) | 94 |
+| `Jovian\Bindings\AppKit\QuartzCore` | QuartzCore | 1 (`CALayer`) |
+| `Jovian\Bindings\AppKit\AV` | AVFoundation (AVKit fallback) | 2 |
+| `Jovian\Bindings\AppKit\GC` | GameController | 6 (`GCController`, `GCExtendedGamepad`, `GCMicroGamepad`, `GCControllerButtonInput`, `GCControllerAxisInput`, `GCControllerDirectionPad`) |
+
+`Runtime\Bridge` also forwards the ext's input tap: `watchInput(int $mask)`
+(an `NSEventMask` OR, `0` stops), `drainInput(): array` (plain records,
+oldest first) and `swallowKeysIn(array $windowNumbers)` (keys no view takes
+in those windows are consumed after recording). A runtime class the table does
+not name (a private subclass such as `GCDualShockGamepad`) boxes as its
+most-derived bound ancestor.
 
 The DTOs mirror AppKit's real inheritance chain, so `NSButton` extends
 `NSControl` extends `NSView` extends `NSResponder`. Inherited selectors bind on
@@ -123,7 +139,7 @@ Boxing retains and garbage collection releases. Two details matter:
 
 ## Working on this package
 
-`src/NS/**`, `src/QuartzCore/**` and `src/Enums/**` are generated from the
+`src/NS/**`, `src/QuartzCore/**`, `src/AV/**`, `src/GC/**` and `src/Enums/**` are generated from the
 `@zep` and `@zep-construct` annotations in `ext-appkit`'s `src/*.h`, joined
 against the macOS SDK headers. Never hand-edit them.
 

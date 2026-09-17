@@ -29,6 +29,27 @@ final class ClassMap
     }
 
     /**
+     * Runtime classes the tree does not name (private subclasses such as
+     * GCDualShockGamepad): the most-derived bound class the object is a kind of.
+     *
+     * @param callable(string): bool $isKindOf asks the runtime about one ObjC class name
+     */
+    public static function phpClassByKind(callable $isKindOf): ?string
+    {
+        $tree = self::tree();
+        $names = array_keys(self::map());
+        usort($names, static fn (string $a, string $b): int => count($tree[$b] ?? []) <=> count($tree[$a] ?? []));
+
+        foreach ($names as $name) {
+            if ($isKindOf($name)) {
+                return self::map()[$name];
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * @return array<string, class-string<ObjCObject>>
      */
     private static function map(): array
@@ -37,6 +58,12 @@ final class ClassMap
             'AVPlayer' => \Jovian\Bindings\AppKit\AV\AVPlayer::class,
             'AVPlayerView' => \Jovian\Bindings\AppKit\AV\AVPlayerView::class,
             'CALayer' => \Jovian\Bindings\AppKit\QuartzCore\CALayer::class,
+            'GCController' => \Jovian\Bindings\AppKit\GC\GCController::class,
+            'GCControllerAxisInput' => \Jovian\Bindings\AppKit\GC\GCControllerAxisInput::class,
+            'GCControllerButtonInput' => \Jovian\Bindings\AppKit\GC\GCControllerButtonInput::class,
+            'GCControllerDirectionPad' => \Jovian\Bindings\AppKit\GC\GCControllerDirectionPad::class,
+            'GCExtendedGamepad' => \Jovian\Bindings\AppKit\GC\GCExtendedGamepad::class,
+            'GCMicroGamepad' => \Jovian\Bindings\AppKit\GC\GCMicroGamepad::class,
             'NSAlert' => \Jovian\Bindings\AppKit\NS\NSAlert::class,
             'NSApplication' => \Jovian\Bindings\AppKit\NS\NSApplication::class,
             'NSAttributedString' => \Jovian\Bindings\AppKit\NS\NSAttributedString::class,
@@ -139,10 +166,24 @@ final class ClassMap
      */
     private static function lineage(string $objcName): array
     {
-        $tree = [
+        return self::tree()[$objcName] ?? [];
+    }
+
+    /**
+     * @return array<string, list<string>>
+     */
+    private static function tree(): array
+    {
+        return [
             'AVPlayer' => ['NSObject'],
             'AVPlayerView' => ['NSView', 'NSResponder', 'NSObject'],
             'CALayer' => ['NSObject'],
+            'GCController' => ['NSObject'],
+            'GCControllerAxisInput' => ['GCControllerElement', 'NSObject'],
+            'GCControllerButtonInput' => ['GCControllerElement', 'NSObject'],
+            'GCControllerDirectionPad' => ['GCControllerElement', 'NSObject'],
+            'GCExtendedGamepad' => ['GCPhysicalInputProfile', 'NSObject'],
+            'GCMicroGamepad' => ['GCPhysicalInputProfile', 'NSObject'],
             'NSAlert' => ['NSObject'],
             'NSApplication' => ['NSResponder', 'NSObject'],
             'NSAttributedString' => ['NSObject'],
@@ -238,7 +279,5 @@ final class ClassMap
             'NSVisualEffectView' => ['NSView', 'NSResponder', 'NSObject'],
             'NSWindow' => ['NSResponder', 'NSObject'],
         ];
-
-        return $tree[$objcName] ?? [];
     }
 }

@@ -25,7 +25,7 @@ class NSImage extends ObjCObject
         return ObjCObject::box(ExtNSImage::init());
     }
 
-    public static function imageNamed(int $name): ?ObjCObject
+    public static function imageNamed(string $name): ?ObjCObject
     {
         return ObjCObject::box(ExtNSImage::imageNamed($name));
     }

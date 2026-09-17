@@ -25,6 +25,7 @@ Six classes, five of them hand-written. Everything under `src/NS/`,
 | `Lifetime` | Shutdown flag, plus `reset()` for tests. |
 | `Bridge` | Projection of `AppKit\Bridge\Bridge`, and the boxing boundary for callbacks. |
 | `pointerOf` / `adopt` | The ext-metal seam (added ext-appkit 0.8.1): `Bridge::pointerOf($handle)` hands out the raw pointer bits of a registry object (0 for invalid); `Bridge::adopt($className, $pointerBits)` wraps a foreign raw pointer into this registry, retained (0 for NULL, or for a kind-of mismatch when `$className` resolves — unchecked when the name is unresolvable here, e.g. a class another extension owns such as `CAMetalLayer`). `ObjCObject::pointerOf()` mirrors the query side on a boxed instance; there is no `adopt`-and-box factory here, because pairing `adopt()` with `box()` is composition, and composition belongs in `jovian/venusian-appkit`. |
+| `watchInput` / `drainInput` | Input tap forwards. `watchInput(int $mask)` installs the ext's local event monitor for an `NSEventMask` OR (`0` removes it); `drainInput()` returns the buffered records oldest first as plain arrays (`windowNumber` is an int, not a handle). No boxing. |
 | `Delegate` | Wraps `delegateNew`/`delegateOn`/`delegateOff`. |
 | `ClassMap` | **Generated.** `ObjC class name` → PHP class, for choosing a class when boxing. |
 
@@ -77,8 +78,10 @@ leaking during process exit is correct, because the process is going away.
 - `observeNotification` → `(?ObjCObject $object, string $name)`.
 - `delegateOn` → each `int` argument is boxed, non-ints pass through unchanged.
 
-`ObjCObject::onAction()`, `onNotification()` and `removeObserver()` are the
-instance-side projections of those.
+`ObjCObject::onAction()`, `onNotification()` and `offNotification()` are the
+instance-side projections of those. `offNotification()` is not named
+`removeObserver()`: generated `NSNotificationCenter::removeObserver()` binds
+the real selector and would collide.
 
 Object *parameters* on generated methods are plain `int`, so you pass
 `$obj->handle`. Only returns and callback arguments are boxed. See

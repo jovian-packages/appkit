@@ -11,6 +11,9 @@ final class Registry
     /** @var array<int, WeakReference<ObjCObject>> */
     private static array $map = [];
 
+    /** @var array<string, class-string<ObjCObject>> runtime class name → PHP class, resolved by kind */
+    private static array $kinds = [];
+
     public static function box(int $handle): ?ObjCObject
     {
         if ($handle === 0) {
@@ -53,6 +56,7 @@ final class Registry
     public static function reset(): void
     {
         self::$map = [];
+        self::$kinds = [];
     }
 
     private static function find(int $handle): ?ObjCObject
@@ -91,6 +95,16 @@ final class Registry
             return $mapped;
         }
 
-        return ObjCObject::class;
+        return self::$kinds[$objcName] ??= self::byKind($handle);
+    }
+
+    /**
+     * @return class-string<ObjCObject>
+     */
+    private static function byKind(int $handle): string
+    {
+        $mapped = ClassMap::phpClassByKind(static fn (string $name): bool => Bridge::isKindOfClass($handle, $name));
+
+        return is_string($mapped) && class_exists($mapped) ? $mapped : ObjCObject::class;
     }
 }

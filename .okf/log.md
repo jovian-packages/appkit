@@ -1,5 +1,21 @@
 # Change log
 
+## 2026-09-17 (GameController + Bridge input tap)
+* **Generation**: new `GC` segment → GameController.framework. Six classes in
+  `src/GC/`: `GCController` (12), `GCExtendedGamepad` (17), `GCMicroGamepad`
+  (4), `GCControllerButtonInput` (3), `GCControllerAxisInput` (1),
+  `GCControllerDirectionPad` (6). Enum miner adds `GCControllerPlayerIndex`.
+  `joined=3799 bridge=17 GEN_OK`, 103 classes; 746 handles, 154 enum returns.
+* **Generator**: `@audit adopts` marker read from ext headers; adopted
+  protocol members folded into the class, hard fail on missing reason /
+  non-adoption / undefined protocol. Property attributes whitespace-normalized
+  (`getter = isPressed`). `GC` prefix counts as a handle type.
+* **Runtime**: `Bridge::watchInput(int)` / `Bridge::drainInput(): array`,
+  plain forwards.
+* **Gates**: parity, reflection, enum-typing, enums, `lib.mjs` learn `src/GC` /
+  GameController. `verify-enums` still fails on the pre-existing AV and
+  `NSDateFormatterStyle` entries (unchanged from HEAD).
+
 ## 2026-09-13 (windowed OpenGL — NSOpenGLPixelFormat / NSOpenGLContext / NSOpenGLView, 0.8.2)
 * **Generation**: ext-appkit 0.8.2's three windowed-GL classes project without
   a hand-written line: `NSOpenGLPixelFormat` (5), `NSOpenGLContext` (25),
@@ -186,3 +202,9 @@
 - Every extension-dependent test skips when `ext-appkit` is absent, so a green
   run off Darwin proves less than it appears to. `verify-darwin-control.mjs`
   exists to catch a skipped suite reporting success.
+
+## 2026-09-17
+* **Update**: [generation](/generation.md) — NSString-backed typedefs (`NSNotificationName`, `NSAppearanceName`, `NSPasteboardType`, `NSUserInterfaceItemIdentifier` …, resolved from SDK headers by `StringTypedefs`) project as `string` wherever the ext annotation says `string`; 67 signatures moved from `int`.
+* **Update**: [runtime](/runtime.md) — `ObjCObject::removeObserver()` renamed `offNotification()`; it collided with generated `NSNotificationCenter::removeObserver()`, a fatal on first autoload. A test now autoloads every generated class.
+
+* **Update**: [runtime](/runtime.md) — `Bridge::swallowKeysIn(list<int>)` forwards the ext tap option.

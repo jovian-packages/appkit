@@ -21,6 +21,7 @@ it('every extension call a DTO invokes exists on the installed appkit extension'
     $files = [
         ...(glob($root . '/src/NS/*.php') ?: []),
         ...(glob($root . '/src/QuartzCore/*.php') ?: []),
+        ...(glob($root . '/src/GC/*.php') ?: []),
     ];
     expect($files)->not->toBeEmpty();
 

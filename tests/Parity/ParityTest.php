@@ -147,6 +147,7 @@ function appkitParseZepAnnotations(string $extRoot): array
                 $dtoFiles[$short] = match ($ns) {
                     'QuartzCore' => 'src/QuartzCore/' . $short . '.php',
                     'AV' => 'src/AV/' . $short . '.php',
+                    'GC' => 'src/GC/' . $short . '.php',
                     default => 'src/NS/' . $short . '.php',
                 };
             }
@@ -213,7 +214,7 @@ function appkitDtoRelPaths(): array
 {
     $root = dirname(__DIR__, 2);
     $out = [];
-    foreach (['src/NS', 'src/QuartzCore', 'src/AV'] as $prefix) {
+    foreach (['src/NS', 'src/QuartzCore', 'src/AV', 'src/GC'] as $prefix) {
         foreach (glob($root . '/' . $prefix . '/*.php') ?: [] as $path) {
             $out[] = $prefix . '/' . basename($path);
         }
@@ -233,6 +234,7 @@ function appkitDtoAbsPaths(): array
         ...(glob($root . '/src/NS/*.php') ?: []),
         ...(glob($root . '/src/QuartzCore/*.php') ?: []),
         ...(glob($root . '/src/AV/*.php') ?: []),
+        ...(glob($root . '/src/GC/*.php') ?: []),
     ];
 }
 

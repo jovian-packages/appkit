@@ -28,12 +28,12 @@ class NSImageSymbolConfiguration extends ObjCObject
         return ObjCObject::box(ExtNSImageSymbolConfiguration::configurationWithPointSizeWeight($pointSize, $weight));
     }
 
-    public static function configurationWithTextStyleScale(int $style, NSImageSymbolScale|int $scale): ?ObjCObject
+    public static function configurationWithTextStyleScale(string $style, NSImageSymbolScale|int $scale): ?ObjCObject
     {
         return ObjCObject::box(ExtNSImageSymbolConfiguration::configurationWithTextStyleScale($style, $scale instanceof \BackedEnum ? $scale->value : $scale));
     }
 
-    public static function configurationWithTextStyle(int $style): ?ObjCObject
+    public static function configurationWithTextStyle(string $style): ?ObjCObject
     {
         return ObjCObject::box(ExtNSImageSymbolConfiguration::configurationWithTextStyle($style));
     }
